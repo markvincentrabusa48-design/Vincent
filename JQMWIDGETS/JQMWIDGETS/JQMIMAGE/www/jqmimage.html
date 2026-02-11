@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery Mobile Image Popup Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- jQuery Mobile CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+    <!-- jQuery Mobile JS -->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    
+    <style>
+        /* Custom Styles */
+        .ui-content {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .gallery-title {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .thumbnail-container {
+            display: inline-block;
+            margin: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .thumbnail-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .thumbnail {
+            display: block;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .thumbnail img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .popup-image {
+            max-width: 90vw;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .popup-container {
+            padding: 0;
+            background: #000;
+            text-align: center;
+        }
+        
+        .ui-popup {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .ui-header {
+            background: #2c3e50;
+            color: white;
+            text-shadow: none;
+        }
+        
+        .ui-footer {
+            background: #34495e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .ui-btn-back {
+            background: #3498db;
+            color: white;
+            border: none;
+        }
+        
+        .ui-btn-close {
+            background: #e74c3c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .image-caption {
+            color: white;
+            padding: 10px;
+            background: rgba(0,0,0,0.7);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div data-role="page" id="gallery-page">
+        <!-- Header -->
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <a href="index.html" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-left ui-btn-back">Back</a>
+            <h1><i class="ui-icon-camera"></i> Image Gallery</h1>
+        </div>
+
+        <!-- Main Content -->
+        <div role="main" class="ui-content">
+            <h2 class="gallery-title">Popup Image Gallery</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Click on any thumbnail to view the full-size image
+            </p>
+            
+            <!-- Image 1: Juniel -->
+            <div class="thumbnail-container">
+                <a href="#popupjuniel" data-rel="popup" data-position-to="window" data-transition="fade" class="thumbnail">
+                    <img src="images/juniel.jpg" alt="Juniel">
+                    <div style="padding: 5px; background: #f5f5f5; font-size: 12px; color: #333;">Juniel</div>
+                </a>
+            </div>
+            
+            <!-- Image 2: Anime -->
+            <div class="thumbnail-container">
+                <a href="#popupanime" data-rel="popup" data-position-to="window" data-transition="fade" class="thumbnail">
+                    <img src="images/anime.jpeg" alt="Zero Two">
+                    <div style="padding: 5px; background: #f5f5f5; font-size: 12px; color: #333;">Zero Two</div>
+                </a>
+            </div>
+            
+            <!-- Image 3: Family Picture -->
+            <div class="thumbnail-container">
+                <a href="#popupfampic" data-rel="popup" data-position-to="window" data-transition="fade" class="thumbnail">
+                    <img src="images/fampic.jpg" alt="Family Picture">
+                    <div style="padding: 5px; background: #f5f5f5; font-size: 12px; color: #333;">Family</div>
+                </a>
+            </div>
+            
+            <!-- Image 4: High School -->
+            <div class="thumbnail-container">
+                <a href="#popuphigh1" data-rel="popup" data-position-to="window" data-transition="fade" class="thumbnail">
+                    <img src="images/high1.jpg" alt="High School">
+                    <div style="padding: 5px; background: #f5f5f5; font-size: 12px; color: #333;">High School</div>
+                </a>
+            </div>
+            
+            <div style="clear: both; margin-top: 30px;">
+                <p style="color: #777; font-size: 13px; text-align: center;">
+                    <i>Tap any image to view it in full size. Press ESC or tap outside to close.</i>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <h4>Mobile Application Development &copy; 2023</h4>
+        </div>
+
+        <!-- Popup 1: Juniel -->
+        <div data-role="popup" id="popupjuniel" class="popup-container" data-overlay-theme="b" data-corners="false" data-tolerance="30,15">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right ui-btn-close">Close</a>
+            <img class="popup-image" src="images/juniel.jpg" alt="Juniel - Korean Singer">
+            <div class="image-caption">Juniel - Korean Singer and Songwriter</div>
+        </div>
+
+        <!-- Popup 2: Anime -->
+        <div data-role="popup" id="popupanime" class="popup-container" data-overlay-theme="b" data-corners="false" data-tolerance="30,15">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right ui-btn-close">Close</a>
+            <img class="popup-image" src="images/anime.jpeg" alt="Zero Two - Anime Character">
+            <div class="image-caption">Zero Two - Character from Darling in the Franxx</div>
+        </div>
+
+        <!-- Popup 3: Family Picture -->
+        <div data-role="popup" id="popupfampic" class="popup-container" data-overlay-theme="b" data-corners="false" data-tolerance="30,15">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right ui-btn-close">Close</a>
+            <img class="popup-image" src="images/fampic.jpg" alt="Family Picture">
+            <div class="image-caption">Family Portrait - Cherished Memories</div>
+        </div>
+
+        <!-- Popup 4: High School -->
+        <div data-role="popup" id="popuphigh1" class="popup-container" data-overlay-theme="b" data-corners="false" data-tolerance="30,15">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right ui-btn-close">Close</a>
+            <img class="popup-image" src="images/high1.jpg" alt="High School Memories">
+            <div class="image-caption">High School Days - Academic Memories</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize jQuery Mobile
+        $(document).on("pagecreate", "#gallery-page", function() {
+            // Set default page transition
+            $.mobile.defaultPageTransition = "fade";
+            
+            // Enhance popup functionality
+            $(".thumbnail").on("click", function() {
+                // Add active class for visual feedback
+                $(this).parent().addClass("active");
+                
+                // Remove active class after popup closes
+                $(document).on("popupafterclose", function() {
+                    $(".thumbnail-container").removeClass("active");
+                });
+            });
+            
+            // Keyboard navigation support
+            $(document).on("keyup", function(e) {
+                if (e.keyCode === 27) { // ESC key
+                    $(".ui-popup-active").popup("close");
+                }
+            });
+        });
+        
+        // Handle image loading errors
+        $(document).on("pageinit", function() {
+            $(".popup-image").on("error", function() {
+                var altText = $(this).attr("alt") || "Image";
+                $(this).replaceWith(
+                    '<div style="padding: 40px; color: white; text-align: center;">' +
+                    '<p><i class="ui-icon-alert" style="font-size: 48px;"></i></p>' +
+                    '<p>Failed to load: ' + altText + '</p>' +
+                    '<p style="font-size: 12px;">Check the image path: ' + $(this).attr("src") + '</p>' +
+                    '</div>'
+                );
+            });
+        });
+    </script>
+</body>
+</html>
